@@ -8,15 +8,16 @@ To write a program to implement the Decision Tree Regressor Model for Predicting
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. Import the required libraries and create the employee salary dataset.
 
-2. Select the input feature (Experience) and target variable (Salary).
+1. Import the required libraries.
 
-3. Split the dataset into training data and testing data.
+2. Create the dataset and convert it into a DataFrame.
 
-4. Train the Decision Tree Regressor model using the training data.
+3. Separate the input feature (`StudyHours`) and target variable (`Marks`).
 
-5. Predict the salary using test data and evaluate the model performance.
+4. Split the dataset into training and testing data.
+
+5. Create and train the `DecisionTreeRegressor` model using the training data.
 
 
 ## Program:
@@ -25,56 +26,63 @@ To write a program to implement the Decision Tree Regressor Model for Predicting
 Program to implement the Decision Tree Regressor Model for Predicting the Salary of the Employee.
 Developed by: Ranjani S
 RegisterNumber:212225230224
-
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
+from sklearn.tree import DecisionTreeRegressor, plot_tree
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-# Employee dataset
+# Dataset
 data = {
-    'Experience': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    'Salary': [25000, 30000, 35000, 40000, 50000,
-               60000, 65000, 70000, 80000, 90000]
+    'StudyHours': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'Marks': [35, 40, 45, 50, 60, 68, 75, 82, 90, 98]
 }
 
 # Create DataFrame
 df = pd.DataFrame(data)
 
 # Features and Target
-X = df[['Experience']]
-y = df['Salary']
+X = df[['StudyHours']]
+y = df['Marks']
 
-# Train-Test Split
+# Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# Model Creation
+# Create Decision Tree Regressor
 model = DecisionTreeRegressor(random_state=42)
+
+# Train the model
 model.fit(X_train, y_train)
 
-# Prediction
+# Predict the test data
 y_pred = model.predict(X_test)
 
-# Evaluation
-print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
+# Evaluation Metrics
+print("Mean Squared Error (MSE):", mean_squared_error(y_test, y_pred))
+print("Mean Absolute Error (MAE):", mean_absolute_error(y_test, y_pred))
+print("R2 Score:", r2_score(y_test, y_pred))
 
-# Graph
-plt.scatter(X, y)
-plt.plot(X, model.predict(X), linewidth=2)
-plt.title("Decision Tree Regressor")
-plt.xlabel("Experience")
-plt.ylabel("Salary")
+# Decision Tree Diagram
+plt.figure(figsize=(12, 6))
+
+plot_tree(
+    model,
+    feature_names=['StudyHours'],
+    filled=True,
+    rounded=True
+)
+
+plt.title("Decision Tree Regressor - Marks Prediction")
 plt.show()
- 
+
 */
 ```
 
 ## Output:
 
-<img width="716" height="497" alt="Screenshot 2026-05-11 194747" src="https://github.com/user-attachments/assets/60877499-4397-4346-ba14-2c1f39d02759" />
+<img width="1137" height="581" alt="Screenshot 2026-05-19 144622" src="https://github.com/user-attachments/assets/a1af4235-3f39-45eb-b01b-60b6a65ad456" />
 
 
 ## Result:
